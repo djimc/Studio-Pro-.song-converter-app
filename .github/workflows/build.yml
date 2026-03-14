@@ -11,13 +11,13 @@ jobs:
   build-linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
         with:
           go-version: '1.21'
           cache: false
       - name: Install dependencies
-        run: sudo apt-get install -y gcc libgl1-mesa-dev xorg-dev
+        run: sudo apt-get update && sudo apt-get install -y --fix-missing gcc libgl1-mesa-dev xorg-dev
       - name: Tidy
         run: go mod tidy
       - name: Build
@@ -30,8 +30,8 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
         with:
           go-version: '1.21'
           cache: false
@@ -44,23 +44,36 @@ jobs:
           name: SongConverter-windows
           path: SongConverter.exe
 
-  build-macos:
-    runs-on: macos-latest
+  build-macos-intel:
+    runs-on: macos-13
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
         with:
           go-version: '1.21'
           cache: false
       - name: Tidy
         run: go mod tidy
-      - name: Build (Intel)
-        run: GOARCH=amd64 go build -o SongConverter-intel .
-      - name: Build (Apple Silicon)
-        run: GOARCH=arm64 go build -o SongConverter-arm64 .
+      - name: Build
+        run: go build -o SongConverter-intel .
       - uses: actions/upload-artifact@v4
         with:
-          name: SongConverter-macos
-          path: |
-            SongConverter-intel
-            SongConverter-arm64
+          name: SongConverter-macos-intel
+          path: SongConverter-intel
+
+  build-macos-arm64:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+          cache: false
+      - name: Tidy
+        run: go mod tidy
+      - name: Build
+        run: go build -o SongConverter-arm64 .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SongConverter-macos-arm64
+          path: SongConverter-arm64
