@@ -1,5 +1,6 @@
 # Studio One Song Converter
-SongConverter-windows.png
+![Screenshot](SongConverter-windows.png)
+
 A cross-platform GUI app to downgrade Studio One `.song` files between versions 8, 7 and 6, based on my script here:
 https://github.com/djimc/Fender-Studio-Pro-Studio-One-.song-converter
 
@@ -30,3 +31,8 @@ Cheers!
 |--------------------|------------------------------------|
 | Studio Pro v8 (9)  | → Studio One 7 (v8), → SO6 (v7)   |
 | Studio One v7 (8)  | → Studio One 6 (v7)                |
+
+## Other Screenshots:
+
+![Screenshot](Screenshot_20260314_154117.png)
+![Screenshot](Screenshot_20260314_154029.png)
