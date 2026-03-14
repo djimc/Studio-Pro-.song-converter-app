@@ -20,12 +20,14 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y --fix-missing gcc libgl1-mesa-dev xorg-dev
       - name: Tidy
         run: go mod tidy
-      - name: Build
-        run: go build -o SongConverter .
+      - name: Install fyne CLI
+        run: go install fyne.io/fyne/v2/cmd/fyne@latest
+      - name: Package
+        run: fyne package -os linux -icon icon.png -name SongConverter
       - uses: actions/upload-artifact@v4
         with:
           name: SongConverter-linux
-          path: SongConverter
+          path: SongConverter.tar.xz
 
   build-windows:
     runs-on: windows-latest
@@ -37,15 +39,17 @@ jobs:
           cache: false
       - name: Tidy
         run: go mod tidy
-      - name: Build
-        run: go build -ldflags "-H=windowsgui" -o SongConverter.exe .
+      - name: Install fyne CLI
+        run: go install fyne.io/fyne/v2/cmd/fyne@latest
+      - name: Package
+        run: fyne package -os windows -icon icon.png -name SongConverter
       - uses: actions/upload-artifact@v4
         with:
           name: SongConverter-windows
           path: SongConverter.exe
 
   build-macos-intel:
-    runs-on: macos-26-intel
+    runs-on: macos-13
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -54,15 +58,19 @@ jobs:
           cache: false
       - name: Tidy
         run: go mod tidy
-      - name: Build
-        run: go build -o SongConverter-intel .
+      - name: Install fyne CLI
+        run: go install fyne.io/fyne/v2/cmd/fyne@latest
+      - name: Package
+        run: fyne package -os darwin -icon icon.png -name SongConverter
+      - name: Zip app bundle
+        run: zip -r SongConverter-intel.zip SongConverter.app
       - uses: actions/upload-artifact@v4
         with:
           name: SongConverter-macos-intel
-          path: SongConverter-intel
+          path: SongConverter-intel.zip
 
   build-macos-arm64:
-    runs-on: macos-26
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -71,9 +79,13 @@ jobs:
           cache: false
       - name: Tidy
         run: go mod tidy
-      - name: Build
-        run: go build -o SongConverter-arm64 .
+      - name: Install fyne CLI
+        run: go install fyne.io/fyne/v2/cmd/fyne@latest
+      - name: Package
+        run: fyne package -os darwin -icon icon.png -name SongConverter
+      - name: Zip app bundle
+        run: zip -r SongConverter-arm64.zip SongConverter.app
       - uses: actions/upload-artifact@v4
         with:
           name: SongConverter-macos-arm64
-          path: SongConverter-arm64
+          path: SongConverter-arm64.zip
