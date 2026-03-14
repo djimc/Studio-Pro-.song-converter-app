@@ -1,6 +1,7 @@
 # Studio One Song Converter
 
-A cross-platform GUI app to downgrade Studio One `.song` files between versions.
+A cross-platform GUI app to downgrade Studio One `.song` files between versions 8, 7 and 6, based on my script here:
+https://github.com/djimc/Fender-Studio-Pro-Studio-One-.song-converter
 
 ## Features
 - Drag & drop or browse for `.song` files
@@ -8,49 +9,15 @@ A cross-platform GUI app to downgrade Studio One `.song` files between versions.
 - Applies all required patches (FormatVersion + Pro EQ UUID fix)
 - Studio One-inspired dark theme
 
+
+I am not planning to fix any issues because the app was created just to test how far AI has gone. I will probably update the app (and the script) when v9 is released if I decide to upgrade to Fender Studio 9 when it arrives.
+
+I have not included conversion (downgrades) to pre-6 versions because they don't support Dynamic EQ and I see no reason to go back to any verion below 6.0. This is something I creaded for myself and I'm sharing with the world. I have tested on Windows 11 and Debian Trixie. I have NOT tested the Mac releases.
+
+Anyone interested to pick up, please share with the world ;)
+Cheers!
 ---
 
-## Building
-
-### Prerequisites
-- [Go 1.21+](https://go.dev/dl/)
-- A C compiler (required by Fyne for CGo):
-  - **Linux:** `sudo apt install gcc libgl1-mesa-dev xorg-dev`
-  - **Windows:** Install [TDM-GCC](https://jmeubank.github.io/tdm-gcc/) or [MSYS2](https://www.msys2.org/)
-  - **macOS:** Install Xcode Command Line Tools: `xcode-select --install`
-- [Docker](https://www.docker.com/) — only needed for cross-compilation
-
----
-
-### Option A: Build for your current OS only (simplest)
-
-```bash
-cd songconverter
-go mod tidy          # downloads dependencies
-go build -o SongConverter .
-```
-
-On Windows this will produce `SongConverter.exe`.
-
----
-
-### Option B: Build for all platforms at once (requires Docker)
-
-```bash
-chmod +x build_all.sh
-./build_all.sh
-```
-
-Outputs will be placed in `fyne-cross/dist/`:
-```
-fyne-cross/dist/
-  linux-amd64/SongConverter
-  windows-amd64/SongConverter.exe
-  darwin-amd64/SongConverter
-  darwin-arm64/SongConverter        ← Apple Silicon
-```
-
----
 
 ## Usage
 
