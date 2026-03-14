@@ -38,7 +38,7 @@ jobs:
       - name: Tidy
         run: go mod tidy
       - name: Build
-        run: go build -o SongConverter.exe .
+        run: go build -ldflags "-H=windowsgui" -o SongConverter.exe .
       - uses: actions/upload-artifact@v4
         with:
           name: SongConverter-windows
