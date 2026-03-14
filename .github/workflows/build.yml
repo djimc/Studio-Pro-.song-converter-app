@@ -54,7 +54,7 @@ jobs:
           path: SongConverter.exe
 
   build-macos-intel:
-    runs-on: macos-13
+    runs-on: macos-13 # Standard Intel x86_64 Runner
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -77,7 +77,7 @@ jobs:
           path: SongConverter-intel.zip
 
   build-macos-arm64:
-    runs-on: macos-latest
+    runs-on: macos-latest # Standard Apple Silicon (M1/M2/M3) Runner
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
