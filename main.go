@@ -3,6 +3,7 @@ package main
 import (
 	"archive/zip"
 	"bytes"
+	_ "embed"
 	"fmt"
 	"image/color"
 	"io"
@@ -21,6 +22,9 @@ import (
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 )
+
+//go:embed icon.png
+var iconBytes []byte
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -175,6 +179,7 @@ var (
 func main() {
 	a := app.NewWithID("com.songconverter.app")
 	a.Settings().SetTheme(&soTheme{})
+	a.SetIcon(fyne.NewStaticResource("icon.png", iconBytes))
 
 	w := a.NewWindow("Studio One Song Converter")
 	w.Resize(fyne.NewSize(460, 460))
