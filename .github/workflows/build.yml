@@ -1,4 +1,4 @@
-name: Build
+name: Build and Release
 
 on:
   push:
@@ -14,13 +14,8 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: '1.24'
-          cache: false
       - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --fix-missing gcc libgl1-mesa-dev xorg-dev
-      - name: Tidy
-        run: go mod tidy
+        run: sudo apt-get update && sudo apt-get install -y gcc libgl1-mesa-dev xorg-dev
       - name: Install fyne CLI
         run: |
           go install fyne.io/fyne/v2/cmd/fyne@latest
@@ -39,9 +34,6 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: '1.24'
-          cache: false
-      - name: Tidy
-        run: go mod tidy
       - name: Install fyne CLI
         run: |
           go install fyne.io/fyne/v2/cmd/fyne@latest
@@ -54,15 +46,12 @@ jobs:
           path: SongConverter.exe
 
   build-macos-intel:
-    runs-on: macos-14 # Updated from 13 to 14 to avoid the 'us-default' error
+    runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
           go-version: '1.24'
-          cache: false
-      - name: Tidy
-        run: go mod tidy
       - name: Install fyne CLI
         run: |
           go install fyne.io/fyne/v2/cmd/fyne@latest
@@ -77,15 +66,12 @@ jobs:
           path: SongConverter-intel.zip
 
   build-macos-arm64:
-    runs-on: macos-latest # Standard Apple Silicon (M1/M2/M3)
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
           go-version: '1.24'
-          cache: false
-      - name: Tidy
-        run: go mod tidy
       - name: Install fyne CLI
         run: |
           go install fyne.io/fyne/v2/cmd/fyne@latest
@@ -98,3 +84,29 @@ jobs:
         with:
           name: SongConverter-macos-arm64
           path: SongConverter-arm64.zip
+
+  # NEW RELEASE JOB
+  publish:
+    name: Publish Release Assets
+    if: github.event_name == 'release'
+    needs: [build-linux, build-windows, build-macos-intel, build-macos-arm64]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./assets
+          merge-multiple: true
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./assets/SongConverter.tar.xz
+            ./assets/SongConverter.exe
+            ./assets/SongConverter-intel.zip
+            ./assets/SongConverter-arm64.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
