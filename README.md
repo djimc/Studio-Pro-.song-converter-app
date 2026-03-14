@@ -32,7 +32,7 @@ https://github.com/djimc/Studio-Pro-.song-converter-app/releases/tag/1.0
 
 | Detected Version   | Available Conversions              |
 |--------------------|------------------------------------|
-| Studio Pro v8      | → Studio One 7 , → SO6 (v7)        |
+| Studio Pro v8      | → Studio One 7 , → SO6             |
 | Studio One v7      | → Studio One 6                     |
 
 ## Other Screenshots:
