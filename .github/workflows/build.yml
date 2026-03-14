@@ -1,0 +1,57 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  release:
+    types: [ created ]
+
+jobs:
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+      - name: Install dependencies
+        run: sudo apt-get install -y gcc libgl1-mesa-dev xorg-dev
+      - name: Build
+        run: go build -o SongConverter .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SongConverter-linux
+          path: SongConverter
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+      - name: Build
+        run: go build -o SongConverter.exe .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SongConverter-windows
+          path: SongConverter.exe
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+      - name: Build (Intel)
+        run: GOARCH=amd64 go build -o SongConverter-intel .
+      - name: Build (Apple Silicon)
+        run: GOARCH=arm64 go build -o SongConverter-arm64 .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SongConverter-macos
+          paths: |
+            SongConverter-intel
+            SongConverter-arm64
