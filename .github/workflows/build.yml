@@ -6,16 +6,13 @@ on:
   release:
     types: [ created ]
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
 
   build-linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version: '1.21'
           cache: false
@@ -33,8 +30,8 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version: '1.21'
           cache: false
@@ -50,8 +47,8 @@ jobs:
   build-macos:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version: '1.21'
           cache: false
@@ -64,6 +61,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: SongConverter-macos
-          paths: |
+          path: |
             SongConverter-intel
             SongConverter-arm64
