@@ -13,6 +13,19 @@ A cross-platform GUI app to downgrade Studio One `.song` files between versions.
 So far I have found that once the conversion is complete, you basically have to restart the app for a new conversion because it remembers the last converted file and just piles new ones on top. 
 This will be probably fixed. For now - just close the app after conversion and restart it if you need to convert a new .song file.
 
+## Pre-built binaries are available in the releases tab. 
+Mac OS versions have NOT been tested as I don't have a mac anymore and I...don't really want one.
+Windows - just extract and start the .exe. 
+
+Linux - Extract and...
+User install (you probably want this one):
+Run "make user-install" to install in ~/.local/
+Run "make user-uninstall" to uninstall from ~/.local/
+OR
+System install:
+Run "sudo make install" to install the application.
+Run "sudo make uninstall" to uninstall the application.
+
 ## Usage
 
 1. Launch the app
@@ -25,19 +38,6 @@ This will be probably fixed. For now - just close the app after conversion and r
 | Studio Pro v8.1  | → Studio Pro 8, Studio One 7 or SO6  |
 | Studio Pro v8    | → Studio One 7 or SO6                |
 | Studio One v7    | → Studio One 6                       |
-
-
-## Pre-built binaries are available in the releases tab. 
-Mac OS versions have NOT been tested as I don't have a mac anymore and I...don't really want one.
-Windows - just extract and start the .exe
-Linux - Extract and...
-User install (you probably want this one):
-Run "make user-install" to install in ~/.local/
-Run "make user-uninstall" to uninstall from ~/.local/
-OR
-System install:
-Run "sudo make install" to install the application.
-Run "sudo make uninstall" to uninstall the application.
 
 ## Building
 
