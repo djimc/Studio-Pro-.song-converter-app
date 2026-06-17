@@ -5,8 +5,10 @@ A cross-platform GUI app to downgrade Studio One `.song` files between versions.
 ## Features
 - Drag & drop or browse for `.song` files
 - Auto-detects project version and shows only valid conversion options
-- Applies all required patches (FormatVersion + Pro EQ UUID fix)
+- Applies all required patches
 - Studio One-inspired dark theme
+- New Compressor intruduced in v8.1 gets converted back to previous versions so they don't scream for a missing device. Settings made on 8.1 are preserved and carried over to previous versions.
+
 ## Known Issues:
 So far I have found that once the conversion is complete, you basically have to restart the app for a new conversion because it remembers the last converted file and just piles new ones on top. 
 This will be probably fixed. For now - just close the app after conversion and restart it if you need to convert a new .song file.
@@ -20,8 +22,9 @@ This will be probably fixed. For now - just close the app after conversion and r
 
 | Detected Version   | Available Conversions              |
 |--------------------|------------------------------------|
-| Studio Pro v8 (9)  | → Studio One 7 (v8), → SO6 (v7)   |
-| Studio One v7 (8)  | → Studio One 6 (v7)                |
+| Studio Pro v8.1  | → Studio Pro 8, Studio One 7 or SO6  |
+| Studio Pro v8    | → Studio One 7 or SO6                |
+| Studio One v7    | → Studio One 6                       |
 
 
 ## Pre-built binaries are available in the releases tab. 
