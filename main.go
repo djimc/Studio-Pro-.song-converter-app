@@ -460,8 +460,7 @@ func main() {
 	a.SetIcon(fyne.NewStaticResource("icon.png", iconBytes))
 
 	w := a.NewWindow("Studio One Song Converter")
-	w.Resize(fyne.NewSize(480, 460))
-	w.SetFixedSize(true)
+	w.Resize(fyne.NewSize(420, 520))
 
 	var loadedFiles []songEntry
 
@@ -481,7 +480,7 @@ func main() {
 		container.NewCenter(dropSubText),
 		layout.NewSpacer(),
 	))
-	dropZone.Resize(fyne.NewSize(440, 130))
+	dropZone.Resize(fyne.NewSize(380, 130))
 
 	// ── Info panel ──
 	versionLabel := canvas.NewText("", colAccent)
@@ -699,7 +698,7 @@ func main() {
 	})
 
 	// ── Layout ──
-	buttonsRow := container.NewGridWithColumns(3, btnSO80, btnSO7, btnSO6)
+	buttonsRow := container.NewVBox(btnSO80, btnSO7, btnSO6)
 	content := container.NewVBox(
 		container.NewPadded(dropZone),
 		container.NewCenter(browseBtn),
